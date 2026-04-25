@@ -145,7 +145,7 @@ dependencies:
   permission_handler: ^11.3.1
 
   # ─── Notifications ─────────────────────────────
-  flutter_local_notifications: ^21.0.0
+  flutter_local_notifications: ^20.1.0
 
   # ─── Background Work ───────────────────────────
   workmanager: ^0.9.0+3

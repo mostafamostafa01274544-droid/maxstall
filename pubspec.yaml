@@ -1,0 +1,45 @@
+name: yj_converter
+description: "MP4 to 3GP converter — hardware-accelerated via Media3 Transformer."
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ─── State Management ─────────────────────────
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+
+  # ─── Native Bridge / Channels ─────────────────
+  # (Media3 Transformer is called via MethodChannel from Kotlin)
+
+  # ─── File Picking ──────────────────────────────
+  file_picker: ^8.1.2
+
+  # ─── Paths ─────────────────────────────────────
+  path: ^1.9.0
+  path_provider: ^2.1.4
+
+  # ─── Permissions ───────────────────────────────
+  permission_handler: ^11.3.1
+
+  # ─── Notifications ─────────────────────────────
+  flutter_local_notifications: ^20.1.0
+
+  # ─── Background Work ───────────────────────────
+  workmanager: ^0.9.0+3
+
+  # ─── UI Extras ─────────────────────────────────
+  gap: ^3.0.1
+  percent_indicator: ^4.2.3
+  flutter_animate: ^4.5.0
+  glassmorphism: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
