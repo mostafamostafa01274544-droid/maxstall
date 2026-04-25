@@ -52,20 +52,6 @@ class ConversionWorker(
         }
     }
 
-    /**
-     * Media3 Transformer — Hardware-accelerated conversion to 3GP
-     * Spec: H.263-compatible profile, 320x240, ~1Mbps video, AMR-NB audio
-     *
-     * NOTE: Media3 does not natively export to 3GP container with H.263 codec
-     * because H.263 is a legacy format. The strategy used here is:
-     *   1. Transcode to H.264 baseline profile @ 320x240 via Media3 Transformer
-     *      (hardware accelerated, best quality)
-     *   2. The output file is saved with .3gp extension — modern Android players
-     *      accept H.264 in 3GP container (3GPP2 allows it per spec).
-     *
-     * This gives the BEST visual quality while maintaining 3GP compatibility
-     * for itel/legacy Android 7.0+ devices, which all support H.264 Baseline.
-     */
     private suspend fun runMedia3Conversion(
         inputPath: String,
         outputPath: String
@@ -73,30 +59,11 @@ class ConversionWorker(
         // Ensure output directory exists
         File(outputPath).parentFile?.mkdirs()
 
-        // Video: H.264 Baseline @ 320x240, 1 Mbps — vivid colors, sharp image
-        val videoFormat = TransformationRequest.Builder()
-            .setVideoMimeType(MimeTypes.VIDEO_H264)
-            .setHdrMode(TransformationRequest.HDR_MODE_KEEP_HDR)
-            .build()
-
-        val effects = Effects(
-            /* audioProcessors = */ emptyList(),
-            /* videoEffects = */ listOf(
-                Presentation.createForWidthAndHeight(
-                    320, 240,
-                    Presentation.LAYOUT_SCALE_TO_FIT
-                )
-            )
-        )
-
         val editedItem = EditedMediaItem.Builder(
             MediaItem.fromUri("file://$inputPath")
-        )
-            .setEffects(effects)
-            .build()
+        ).build()
 
         val transformer = Transformer.Builder(applicationContext)
-            .setTransformationRequest(videoFormat)
             .addListener(object : Transformer.Listener {
                 override fun onCompleted(composition: Composition, result: ExportResult) {
                     cont.resume(Unit)

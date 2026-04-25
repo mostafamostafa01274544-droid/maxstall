@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -242,7 +239,7 @@ class _SuccessBanner extends StatelessWidget {
         : '—';
 
     return GlassCard(
-      borderColor: AppColors.neonPrimary.withOpacity(0.5),
+      borderColor: AppColors.neonPrimary.withAlpha(128),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -285,7 +282,7 @@ class _ErrorBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassCard(
-      borderColor: AppColors.neonAccent.withOpacity(0.5),
+      borderColor: AppColors.neonAccent.withAlpha(128),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -371,13 +368,13 @@ class _ActionButtons extends StatelessWidget {
                 : () => bloc.add(const StartConversionEvent()),
             gradient: const LinearGradient(
                 colors: [Color(0xFF7C5CFC), Color(0xFF00F5C4)]),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.rocket_launch_rounded,
+                Icon(Icons.rocket_launch_rounded,
                     color: Colors.white, size: 20),
-                const Gap(10),
-                const Text('Convert to 3GP',
+                Gap(10),
+                Text('Convert to 3GP',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w800,

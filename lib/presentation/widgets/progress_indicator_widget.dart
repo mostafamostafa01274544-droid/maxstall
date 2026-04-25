@@ -14,7 +14,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
     final pct = (progress * 100).toStringAsFixed(0);
 
     return GlassCard(
-      borderColor: AppColors.neonPrimary.withOpacity(0.4),
+      borderColor: AppColors.neonPrimary.withAlpha(102),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,7 +52,7 @@ class ProgressIndicatorWidget extends StatelessWidget {
           LinearPercentIndicator(
             percent: progress.clamp(0.0, 1.0),
             lineHeight: 6,
-            backgroundColor: AppColors.neonPrimary.withOpacity(0.12),
+            backgroundColor: AppColors.neonPrimary.withAlpha(30),
             linearGradient: AppColors.gradientPrimary,
             barRadius: const Radius.circular(3),
             padding: EdgeInsets.zero,

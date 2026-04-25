@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/services/notification_service.dart';
 import 'injection_container.dart';
-import 'presentation/bloc/converter_bloc.dart';
 import 'presentation/pages/home_page.dart';
 import 'presentation/theme/app_theme.dart';
 
@@ -21,8 +20,8 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor:            Colors.transparent,
     statusBarIconBrightness:   Brightness.light,
-    navigationBarColor:        Color(0xFF0A0E1A),
-    navigationBarIconBrightness: Brightness.light,
+    systemNavigationBarColor:        Color(0xFF0A0E1A),
+    systemNavigationBarIconBrightness: Brightness.light,
   ));
 
   IC.init();

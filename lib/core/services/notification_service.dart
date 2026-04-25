@@ -7,7 +7,10 @@ class NotificationService {
   static Future<void> init() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const settings = InitializationSettings(android: android);
-    await _plugin.initialize(settings);
+    await _plugin.initialize(
+      settings: settings,
+      onDidReceiveNotificationResponse: (response) async {},
+    );
   }
 
   static Future<void> showSuccess(String outputPath) async {
@@ -22,10 +25,10 @@ class NotificationService {
       ),
     );
     await _plugin.show(
-      1,
-      '✅ Conversion Done!',
-      'Saved to $outputPath',
-      details,
+      id: 1,
+      title: '✅ Conversion Done!',
+      body: 'Saved to $outputPath',
+      notificationDetails: details,
     );
   }
 
@@ -39,6 +42,11 @@ class NotificationService {
         priority: Priority.high,
       ),
     );
-    await _plugin.show(2, '❌ Conversion Failed', msg, details);
+    await _plugin.show(
+      id: 2,
+      title: '❌ Conversion Failed',
+      body: msg,
+      notificationDetails: details,
+    );
   }
 }

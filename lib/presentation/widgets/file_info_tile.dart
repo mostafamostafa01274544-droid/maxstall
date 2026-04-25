@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../../core/utils/file_utils.dart';
-import '../theme/app_theme.dart';
 import 'glass_card.dart';
 
 class FileInfoTile extends StatelessWidget {
@@ -26,7 +25,7 @@ class FileInfoTile extends StatelessWidget {
     final name = path.split('/').last;
 
     return GlassCard(
-      borderColor: accentColor.withOpacity(0.4),
+      borderColor: accentColor.withAlpha(102),
       child: Row(
         children: [
           Container(
@@ -35,7 +34,7 @@ class FileInfoTile extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                colors: [accentColor.withOpacity(0.3), accentColor.withOpacity(0.1)],
+                colors: [accentColor.withAlpha(77), accentColor.withAlpha(26)],
               ),
             ),
             child: Icon(Icons.video_file_rounded, color: accentColor, size: 22),
