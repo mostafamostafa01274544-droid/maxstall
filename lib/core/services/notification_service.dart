@@ -7,6 +7,8 @@ class NotificationService {
   static Future<void> init() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const settings = InitializationSettings(android: android);
+    
+    // تم استخدام settings: settings بناء على أخطاء الـ IDE عندك
     await _plugin.initialize(
       settings: settings,
       onDidReceiveNotificationResponse: (response) async {},
@@ -18,15 +20,15 @@ class NotificationService {
       android: AndroidNotificationDetails(
         'yj_done',
         'Conversion Complete',
-        channelDescription: 'Notifies when video conversion finishes',
         importance: Importance.high,
         priority: Priority.high,
         icon: '@mipmap/ic_launcher',
       ),
     );
+
     await _plugin.show(
       id: 1,
-      title: '✅ Conversion Done!',
+      title: 'Done!',
       body: 'Saved to $outputPath',
       notificationDetails: details,
     );
@@ -37,14 +39,14 @@ class NotificationService {
       android: AndroidNotificationDetails(
         'yj_error',
         'Conversion Error',
-        channelDescription: 'Notifies when conversion fails',
         importance: Importance.high,
         priority: Priority.high,
       ),
     );
+
     await _plugin.show(
       id: 2,
-      title: '❌ Conversion Failed',
+      title: 'Error',
       body: msg,
       notificationDetails: details,
     );
