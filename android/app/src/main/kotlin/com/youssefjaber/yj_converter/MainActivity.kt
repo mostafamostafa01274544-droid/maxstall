@@ -5,6 +5,9 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import androidx.work.*
 import android.content.Context
+import android.net.Uri
+import android.provider.MediaStore
+import io.flutter.plugins.GeneratedPluginRegistrant
 
 class MainActivity : FlutterActivity() {
 
@@ -12,6 +15,7 @@ class MainActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        GeneratedPluginRegistrant.registerWith(flutterEngine)
 
         MethodChannel(
             flutterEngine.dartExecutor.binaryMessenger,
@@ -35,6 +39,14 @@ class MainActivity : FlutterActivity() {
                 "cancelAll" -> {
                     WorkManager.getInstance(applicationContext).cancelAllWork()
                     result.success("CANCELLED")
+                }
+
+                "resolveContentUri" -> {
+                    val contentUriString = call.argument<String>("contentUri")
+                        ?: return@setMethodCallHandler result.error(
+                            "INVALID_ARG", "contentUri is null", null)
+                    val filePath = getPathFromUri(contentUriString, applicationContext)
+                    result.success(filePath)
                 }
 
                 else -> result.notImplemented()
@@ -65,5 +77,25 @@ class MainActivity : FlutterActivity() {
                 ExistingWorkPolicy.REPLACE,
                 request
             )
+    }
+
+    private fun getPathFromUri(contentUriString: String, context: Context): String? {
+        val contentUri = Uri.parse(contentUriString)
+        if (contentUri.scheme == "file") {
+            return contentUri.path // Already a file path
+        }
+
+        val projection = arrayOf(MediaStore.Video.Media.DATA)
+        var filePath: String? = null
+
+        context.contentResolver.query(contentUri, projection, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val columnIndex = cursor.getColumnIndex(MediaStore.Video.Media.DATA)
+                if (columnIndex != -1) {
+                    filePath = cursor.getString(columnIndex)
+                }
+            }
+        }
+        return filePath
     }
 }
