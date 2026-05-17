@@ -1,3 +1,0 @@
--keep class androidx.media3.** { *; }
--keep class androidx.work.** { *; }
--dontwarn androidx.media3.**
